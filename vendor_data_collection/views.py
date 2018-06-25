@@ -100,4 +100,4 @@ def add_vendor_p3(request):
 
 
 def add_vendor_p4(request):
-    return HttpResponse('hello')
+    return render(request,'vendor_data/add_menu.html')
