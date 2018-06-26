@@ -18,7 +18,8 @@ FORM_DATA={
     'end_min':[],
     'end_type':[],
     'hygeine_rating':[],
-    'taste_rating':[]
+    'taste_rating':[],
+    'menu':{}
 }
 
 # Create your views here.
@@ -78,8 +79,10 @@ def add_vendor_p2(request):
                     FORM_DATA['end_type'].append(data['end_type'])
             if FORM_DATA['vendor_type']=='street-food' or FORM_DATA['vendor_type']=='drinks':
                 return HttpResponseRedirect('/vendor_data/add/p3/')
+            elif FORM_DATA['vendor_type']=='vegetables':
+                return HttpResponseRedirect('/vendor_data/add/p5/')
             else:
-                return HttpResponseRedirect('/vendor_data/add/p4')
+                return HttpResponseRedirect('/vendor_data/add/p4/')
 
     return render(request,'vendor_data/add_location.html',{'form':add_vendor_locations_form})
 
@@ -100,4 +103,30 @@ def add_vendor_p3(request):
 
 
 def add_vendor_p4(request):
+
+    if request.method=="POST":
+        menu_form_data=request.POST
+        categories={}
+        for i in menu_form_data:
+            if "cat" in i:
+                categories[menu_form_data.get(i)]={'price':[],'item':[]}
+            elif 'item_price' in i:
+                category_identifier=menu_form_data.get("cat"+i.split("-")[0].replace("item_price",""))
+                categories[category_identifier]['price'].append(menu_form_data.get(i))
+            elif 'item' in i:
+                category_identifier = menu_form_data.get("cat" + i.split("-")[0].replace("item", ""))
+                categories[category_identifier]['item'].append(menu_form_data.get(i))
+        FORM_DATA['menu']=categories
+        print(FORM_DATA)
+        return HttpResponseRedirect('/vendor_data/add/p5/')
+
+
+
     return render(request,'vendor_data/add_menu.html')
+
+def add_vendor_p5(request):
+
+    if request.method=='POST':
+        print(request.FILES,request.POST)
+
+    return render(request,'vendor_data/add_image.html')
