@@ -47,6 +47,19 @@ RATING_CHOICES=(
     ('5','5')
 )
 
+USER_CHOICES=(
+    ('1','1'),
+    ('2','2'),
+    ('3','3'),
+    ('4','4'),
+    ('5','5')
+)
+
+class user_form(forms.Form):
+    user = forms.ChoiceField( choices=USER_CHOICES,widget=forms.Select(attrs={'class':'form-control', 'style': 'margin-bottom:15px;'}))
+
+
+
 
 class add_vendor_form_p1(forms.Form):
     name = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control', 'style': 'margin-bottom:15px;'}),required=False)

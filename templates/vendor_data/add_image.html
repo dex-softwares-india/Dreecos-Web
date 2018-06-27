@@ -10,11 +10,11 @@
     </div>
     <form enctype="multipart/form-data" method="post" action="">
         {% csrf_token %}
-        <input type="file"id="file_input"onchange="showFile(event)"style="display: none">
+        <input type="file"id="file_input"onchange="showFile(event)"style="display: none"name="file">
+
+<button type="button"class="btn btn-secondary"onclick="uploadFile()"style="margin: 10px"><span class="glyphicon glyphicon-plus">&nbsp;Browse</span></button>
         <button type="submit" class="btn btn-info"style="margin: 10px">Submit</button>
     </form>
-<button type="button"class="btn btn-secondary"onclick="uploadFile()"style="margin: 10px"><span class="glyphicon glyphicon-plus">&nbsp;Browse</span></button>
-    {{ request.build_absolute_uri }}
     <script>
         var uploadField=document.getElementById('file_input');
         function uploadFile()
